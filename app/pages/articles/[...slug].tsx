@@ -1,4 +1,5 @@
 import createArticleComment from "app/article-comments/mutations/createArticleComment"
+import deleteArticleComment from "app/article-comments/mutations/deleteArticleComment"
 import getArticleComments from "app/article-comments/queries/getArticleComments"
 import createArticleLike from "app/article-likes/mutations/createArticleLike"
 import deleteArticleLike from "app/article-likes/mutations/deleteArticleLike"
@@ -8,6 +9,7 @@ import { IconButton } from "app/core/components/IconButton"
 import Loading from "app/core/components/Loading"
 import { MDXComponents } from "app/core/components/MDXComponents"
 import Spinner from "app/core/components/Spinner"
+import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import Layout from "app/core/layouts/Layout"
 import { notify } from "app/lib/notify"
 import { BlitzPage, Head, useInfiniteQuery, useMutation, useQuery } from "blitz"
@@ -18,7 +20,7 @@ import { useHydrate } from "next-mdx/client"
 import { getMdxNode, getMdxPaths, MdxNode } from "next-mdx/server"
 import { Suspense, useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { IoHeart, IoSend } from "react-icons/io5"
+import { IoHeart, IoSend, IoTrash } from "react-icons/io5"
 import { useInView } from "react-intersection-observer"
 import rehypeHighlight from "rehype-highlight"
 import remarkAutolinkHeadings from "remark-autolink-headings"
@@ -66,9 +68,11 @@ function Toc({ tree }: { tree: TableOfContents }) {
 
 export const Article = ({ post, toc, content }) => {
   const slug = post.slug
+  const user = useCurrentUser()
   const [createArticleLikeMutation, { isLoading: isLiking }] = useMutation(createArticleLike)
   const [deleteArticleLikeMutation, { isLoading: isUnliking }] = useMutation(deleteArticleLike)
   const [createArticleCommentMutation] = useMutation(createArticleComment)
+  const [deleteArticleCommentMutation] = useMutation(deleteArticleComment)
   const [likes, { refetch: refetchLikes, isFetching: isFetchingLikes }] = useQuery(
     getArticleLikes,
     { slug }
@@ -179,20 +183,35 @@ export const Article = ({ post, toc, content }) => {
             {page.comments.map((comment) => (
               <li
                 key={comment.id}
-                className="grid grid-cols-2 gap-4"
+                className="grid grid-cols-2 gap-2"
                 style={{ gridTemplateColumns: "2.5rem 1fr" }}
               >
                 <Avatar text={comment.user.name} />
                 <div className="flex flex-col space-y-2">
-                  <div className="flex items-center space-x-4">
-                    <span>{comment.user.name}</span>
-                    <span className="text-gray-500">
-                      {new Date(comment.createdAt).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </span>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <span>{comment.user.name}</span>
+                      <span className="text-gray-500">
+                        {new Date(comment.createdAt).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </span>
+                    </div>
+                    {comment.user.id === user?.id && (
+                      <IconButton
+                        icon={IoTrash}
+                        onClick={async () => {
+                          if (comment.user.id === user?.id) {
+                            await deleteArticleCommentMutation({ id: comment.id }).catch((e) =>
+                              notify(e.message)
+                            )
+                          }
+                          refetchComments()
+                        }}
+                      />
+                    )}
                   </div>
                   <p className="whitespace-pre-line">{comment.text}</p>
                 </div>
