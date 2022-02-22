@@ -14,4 +14,4 @@ export const SPOTIFY_CLIENT_ID = env("SPOTIFY_CLIENT_ID")
 export const SPOTIFY_CLIENT_SECRET = env("SPOTIFY_CLIENT_SECRET")
 export const SPOTIFY_REFRESH_TOKEN = env("SPOTIFY_REFRESH_TOKEN")
 export const SPOTIFY_REDIRECT_URI = "http://localhost:3000/api/spotify/oauth"
-export const MAPBOX_TOKEN = "http://localhost:3000/api/spotify/oauth"
+export const MAPBOX_TOKEN = env("MAPBOX_TOKEN")
