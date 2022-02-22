@@ -1,3 +1,4 @@
+import { MAPBOX_TOKEN } from "app/lib/constants"
 import { Component, useState } from "react"
 import ReactMapGL from "react-map-gl"
 
@@ -15,7 +16,7 @@ export default function Map() {
       {...viewState}
       onMove={(evt: any) => setViewState(evt.viewState)}
       mapStyle="mapbox://styles/mapbox/dark-v10"
-      mapboxAccessToken="pk.eyJ1IjoienhmZm8iLCJhIjoiY2trNXh2anNoMGE0azJ3bjQwY3I5dDhncSJ9.GwZGoxX9O1_QyC_VRmWgkA"
+      mapboxAccessToken={MAPBOX_TOKEN}
       dragRotate={false}
       style={{ borderRadius: "0.25rem" }}
     />

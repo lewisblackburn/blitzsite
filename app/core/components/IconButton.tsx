@@ -24,7 +24,7 @@ export const IconButton: React.FC<IconButton> = ({
       ) : (
         <>
           <Icon icon={icon} />
-          <div className="text-white ml-1">{children}</div>
+          {children && <div className="text-white ml-1">{children}</div>}
         </>
       )}
     </Button>

@@ -140,13 +140,13 @@ export const Article = ({ article, toc, content }) => {
         }}
         className="flex w-full flex-none items-center wrapper pt-10"
       >
-        <div className="relative flex w-full flex-none">
-          <textarea
-            name="text"
-            className="w-full rounded-md px-4 py-3 h-12 overflow-hidden resize-none bg-gray-800 block"
-            onChange={(e) => setComment(e.target.value)}
-            value={comment}
+        <div className="relative flex w-full">
+          <span
+            role="textbox"
+            className="w-full h-auto rounded-md px-4 py-3 resize-none bg-gray-800"
+            onInput={(e) => setComment(e.currentTarget.textContent ?? "")}
             placeholder="Write a comment..."
+            contentEditable
           />
           <div className="absolute p-0.5 right-1 bottom-1">
             <IconButton
