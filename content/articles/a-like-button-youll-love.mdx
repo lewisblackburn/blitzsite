@@ -1,0 +1,91 @@
+---
+title: "A Like Button You'll Love"
+excerpt: "A boring like button never gets a click. But a like button that's actually useful gets a click. This is the story of a like button that's actually useful."
+date: "2022-02-22"
+featured: true
+---
+
+<Playground description="What we're building today">
+  <LikeButtonDemo />
+</Playground>
+
+Whilst creating the like button for my website, I chose to use the [react-icons](https://react-icons.github.io/react-icons/) library. This library allows you to import open-source SVG react icons from popular icon packs into your components. A benifit of this is that you can easily change the icon pack you're using and in the final minfied and gzipped bundle of the icons used are used.
+
+```tsx
+import { IoHeart } from "react-icons/io5" // 1.85KB (988B zipped)
+
+export default component() => {
+  return <IoHeart />
+}
+```
+
+## The Button
+
+The button has four states: isLiked, isLiking, isUnliking and isFetchingLikes with a likes property to display the count.
+The loading state of the button is controlled by the isLiking, isUnliking and isFetchingLikes properties.
+
+```tsx
+<IconButton
+  onClick={async () => {
+    if (slug) {
+      if (!likes.isLiked)
+        await createArticleLikeMutation({ slug }).catch((e) => notify(e.message, "error"))
+      else await deleteArticleLikeMutation({ slug }).catch((e) => notify(e.message, "error"))
+      refetchLikes()
+    }
+  }}
+  icon={IoHeart}
+  className={cn("fixed bottom-4 right-5 h-8", {
+    "text-red-500": likes.isLiked,
+  })}
+  loading={isLiking || isUnliking || isFetchingLikes}
+  disabled={isLiking || isUnliking || isFetchingLikes}
+>
+  {likes.count}
+</IconButton>
+```
+
+As you can see above, the button is both the disabled and loading state whilst the like state is mutating. This is so that button can't be repressed during the mutation. The spinner therefor is technically not a necessary aspect, however, it serves as a more active reponse to let the user know something is happening.
+
+## Persisting State
+
+For the purposes of this website, I'm using [Prisma](https://prisma.io/). This is a great tool for persisting state to a database whilst generating types that can be used on the frontend and backend. As I'm using mdx for my articles, I'm only using a Prisma model to store the likes based on a unique userId and slug instead of a relation table to an article model.
+
+```css
+model ArticleLike {
+  slug   String
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@unique([slug, userId])
+}
+```
+
+<ProsCard
+  title="prisma"
+  pros={[
+    "If you want to change the underlying database in the future, you won't have to rewrite the code.",
+    "Generates types for you.",
+    "Easy to use.",
+    "Easy to maintain.",
+  ]}
+/>
+<ConsCard
+  title="prisma"
+  cons={[
+    "You only have a lose understanding of what the code is actually doing and therefore the code is hard to debug.",
+    "You have less control than if you used pure SQL.",
+  ]}
+/>
+
+## Stretch
+
+If I were to improve the like button I would:
+
+- Add sound effects on click.
+- Animate the count of likes.
+- Debounce the POST request incase the disabled state fails.
+
+## Conclusion
+
+The point of this was to show how simple ui elements don't need to be, well simple. You can have a functional YouTube-esque style button OR you can make it interesting.

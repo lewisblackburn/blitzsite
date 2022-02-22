@@ -1,36 +1,32 @@
-import {
-  AppProps,
-  ErrorBoundary,
-  ErrorComponent,
-  AuthenticationError,
-  AuthorizationError,
-  ErrorFallbackProps,
-  useQueryErrorResetBoundary,
-  Head,
-  Routes,
-  useRouter,
-  useMutation,
-} from "blitz"
 import LoginForm from "app/auth/components/LoginForm"
-
-import "app/core/styles/index.css"
-import {
-  KBarProvider,
-  KBarPortal,
-  KBarPositioner,
-  KBarAnimator,
-  KBarSearch,
-  useMatches,
-  KBarResults,
-  createAction,
-  ActionId,
-  ActionImpl,
-} from "kbar"
-import cn from "classnames"
-import data from "content/posts/data"
-import { IoHome, IoLogoTumblr } from "react-icons/io5"
 import logout from "app/auth/mutations/logout"
 import Layout from "app/core/layouts/Layout"
+import "app/core/styles/index.css"
+import {
+  AppProps,
+  AuthenticationError,
+  AuthorizationError,
+  ErrorBoundary,
+  ErrorComponent,
+  ErrorFallbackProps,
+  Head,
+  useMutation,
+  useQueryErrorResetBoundary,
+  useRouter,
+} from "blitz"
+import cn from "classnames"
+import data from "content/articles/data"
+import {
+  createAction,
+  KBarAnimator,
+  KBarPortal,
+  KBarPositioner,
+  KBarProvider,
+  KBarResults,
+  KBarSearch,
+  useMatches,
+} from "kbar"
+import { IoHome } from "react-icons/io5"
 
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)

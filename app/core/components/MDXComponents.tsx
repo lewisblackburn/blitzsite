@@ -1,8 +1,8 @@
 import { Image, Link } from "blitz"
-
-function Callout({ children, ...props }) {
-  return <div className="bg-red-300">{children}</div>
-}
+import { Playground } from "./Playground"
+import { LikeButtonDemo } from "app/playgrounds/LikeButtonDemo"
+import ProsCard from "./ProsCard"
+import ConsCard from "./ConsCard"
 
 const CustomLink = (props) => {
   const href = props.href
@@ -30,4 +30,8 @@ function RoundedImage(props) {
 export const MDXComponents = {
   CustomLink,
   Image: RoundedImage,
+  Playground,
+  LikeButtonDemo,
+  ProsCard,
+  ConsCard,
 }

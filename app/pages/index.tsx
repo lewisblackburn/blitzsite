@@ -1,24 +1,26 @@
 import Button from "app/core/components/Button"
+import { MDXComponents } from "app/core/components/MDXComponents"
 import NowPlaying from "app/core/components/NowPlaying"
 import TopTrackList from "app/core/components/TopTrackList"
 import Layout from "app/core/layouts/Layout"
 import { dateToYearSince } from "app/lib/dateToYearSince"
 import { BlitzPage, dynamic, Link } from "blitz"
-import { getAllMdxNodes } from "next-mdx"
-import { Post } from "./articles/[...slug]"
 import cn from "classnames"
+import { getAllMdxNodes } from "next-mdx"
+import { Article } from "./articles/[...slug]"
 
 const Map = dynamic(() => import("../core/components/Map"), {
   ssr: false,
 })
 
-const PostListStyle = {
+const ArticleListStyle = {
   0: "from-[#D8B4FE] to-[#818CF8]",
-  1: "from-[#6EE7B7] via-[#3B82F6] to-[#9333EA]",
-  2: "from-[#FDE68A] via-[#FCA5A5] to-[#FECACA]",
+  1: "from-[#FAACA8] to-[#DDD6F3]",
+  2: "from-[#1D976C] to-[#93F9B9]",
+  3: "from-[#ee9ca7] to-[#ffdde1]",
 }
 
-const Home: BlitzPage<{ posts?: Post[] }> = ({ posts }) => {
+const Home: BlitzPage<{ articles?: Article[] }> = ({ articles }) => {
   return (
     <div className="flex flex-col space-y-10">
       <div className="flex items-center justify-center">
@@ -51,16 +53,16 @@ const Home: BlitzPage<{ posts?: Post[] }> = ({ posts }) => {
       <Button className="w-fit px-4 py-3">View changelog</Button>
       <h1 className="text-3xl font-bold">Featured Articles</h1>
       <div className="grid  grid-cols-2 gap-5 text">
-        {posts?.map((post, index) => (
-          <Link key={post.slug} href={`/articles/${post.slug}`}>
+        {articles?.map((article, index) => (
+          <Link key={article.slug} href={`/articles/${article.slug}`}>
             <a
               className={cn(
                 "transform hover:scale-[1.01] transition-all rounded-xl w-full p-1 bg-gradient-to-r",
-                PostListStyle[index]
+                ArticleListStyle[index]
               )}
             >
               <div className="flex flex-col justify-between h-full bg-gray-900 rounded-lg p-4">
-                {post.frontMatter?.title}
+                {article.frontMatter?.title}
               </div>
             </a>
           </Link>
@@ -86,11 +88,13 @@ const Home: BlitzPage<{ posts?: Post[] }> = ({ posts }) => {
 }
 
 export async function getStaticProps() {
-  const posts = await getAllMdxNodes("post")
+  const articles = await getAllMdxNodes("article", {
+    components: MDXComponents,
+  })
 
   return {
     props: {
-      posts: posts.filter((post: Post) => post?.frontMatter?.featured),
+      articles: articles.filter((article: Article) => article?.frontMatter?.featured),
     },
   }
 }
