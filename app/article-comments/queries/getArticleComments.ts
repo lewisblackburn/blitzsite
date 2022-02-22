@@ -5,7 +5,6 @@ interface GetArticleCommentsInput
   extends Pick<Prisma.ArticleCommentFindManyArgs, "where" | "orderBy" | "skip" | "take"> {}
 
 export default resolver.pipe(
-  resolver.authorize(),
   async ({
     where,
     orderBy = { createdAt: "desc" },

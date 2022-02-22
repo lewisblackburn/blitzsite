@@ -9,6 +9,7 @@ import Loading from "app/core/components/Loading"
 import { MDXComponents } from "app/core/components/MDXComponents"
 import Spinner from "app/core/components/Spinner"
 import Layout from "app/core/layouts/Layout"
+import { notify } from "app/lib/notify"
 import { BlitzPage, Head, useInfiniteQuery, useMutation, useQuery } from "blitz"
 import cn from "classnames"
 import "highlight.js/styles/nord.css"
@@ -16,6 +17,7 @@ import { getTableOfContents, TableOfContents } from "next-mdx-toc"
 import { useHydrate } from "next-mdx/client"
 import { getMdxNode, getMdxPaths, MdxNode } from "next-mdx/server"
 import { Suspense, useEffect, useState } from "react"
+import toast from "react-hot-toast"
 import { IoHeart, IoSend } from "react-icons/io5"
 import { useInView } from "react-intersection-observer"
 import rehypeHighlight from "rehype-highlight"
@@ -114,8 +116,9 @@ export const Article = ({ post, toc, content }) => {
         <IconButton
           onClick={async () => {
             if (slug) {
-              if (!likes.isLiked) await createArticleLikeMutation({ slug })
-              else await deleteArticleLikeMutation({ slug })
+              if (!likes.isLiked)
+                await createArticleLikeMutation({ slug }).catch((e) => notify(e.message))
+              else await deleteArticleLikeMutation({ slug }).catch((e) => notify(e.message))
               refetchLikes()
             }
           }}
@@ -138,7 +141,10 @@ export const Article = ({ post, toc, content }) => {
       <form
         onSubmit={async (e) => {
           e.preventDefault()
-          if (slug) await createArticleCommentMutation({ slug, text: comment })
+          if (slug)
+            await createArticleCommentMutation({ slug, text: comment }).catch((e) =>
+              notify(e.message)
+            )
           setComment("")
           refetchComments()
         }}
@@ -224,7 +230,7 @@ const ArticlePage: BlitzPage<{ post: Post; toc: any }> = ({ post, toc }) => {
   )
 }
 
-ArticlePage.authenticate = true
+// ArticlePage.authenticate = false
 ArticlePage.getLayout = (page) => <Layout>{page}</Layout>
 
 export default ArticlePage

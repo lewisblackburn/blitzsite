@@ -1,10 +1,12 @@
 import { Head, BlitzLayout } from "blitz"
 import { KBarAnimator, KBarPortal, KBarPositioner, KBarProvider, KBarSearch } from "kbar"
+import { Toaster } from "react-hot-toast"
 import Header from "../components/Header"
 
 const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
   return (
     <>
+      <Toaster position="top-right" />
       <Head>
         <title>{title || "lewis"}</title>
         <link rel="icon" href="/favicon.ico" />

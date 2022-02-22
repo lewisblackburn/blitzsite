@@ -45,6 +45,7 @@
     "react": "18.0.0-beta-149b420f6-20211119",
     "react-dom": "18.0.0-alpha-5ca4b0433-20211020",
     "react-final-form": "6.5.8",
+    "react-hot-toast": "2.2.0",
     "react-icons": "4.3.1",
     "react-intersection-observer": "8.33.1",
     "react-map-gl": "7.0.6",
