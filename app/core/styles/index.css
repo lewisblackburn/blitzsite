@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .hero {
+    @apply w-full text-[#333];
+  }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scroll-behavior: smooth;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.wrapper {
+  max-width: 65ch;
+  @apply mx-auto;
+}
+
+.article {
+  @apply prose prose-blue prose-invert prose-hr:hidden;
+}
+
+.article > pre {
+  @apply p-0 border border-gray-700 rounded bg-transparent;
+}
+
+.article > pre > code {
+  background-color: transparent;
+  overflow: hidden !important;
+}
+
+/* I understand the fact that there is a watermark but does there need to be TWO? */
+.mapboxgl-ctrl-attrib {
+  display: none;
+}
+
+a[id="external"] {
+  text-decoration: underline;
+  font-weight: 500;
+  @apply text-blue-400 hover:text-blue-500 cursor-pointer;
+}
+
+/* Remark Styles */
+.remark-code-title {
+  @apply px-5 py-3 font-mono text-sm font-bold rounded-t;
+}
+
+.remark-code-title + pre {
+  @apply mt-0 rounded-t-none;
+}

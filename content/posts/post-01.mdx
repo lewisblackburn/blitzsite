@@ -1,0 +1,53 @@
+---
+title: "Token-Based Authentication"
+excerpt: "How to login to discord without a username or password."
+date: "2020-12-21"
+cover: "/assets/covers/bypass-discord-authentication.jpg"
+tags: ["Javascript", "Guide"]
+author:
+  name: Lewis Blackburn
+  twitter: zxffo
+  avatar: ""
+featured: true
+---
+
+Token-based authentication is the standard for user authentication on the modern
+web nowadays, for most sites tokens are the best way to handle authentication for
+multiple users. This is due to factors such as them being stateless and scalable as
+the tokens are stored on client-side. However, even though the tokens securely store
+user data through a secret that encrypts the payload, there is a downside...
+
+## The problem
+
+Although we can't access data inside of a token without a key, we can pretend to be a user just by injecting the key into local storage or cookies. As a result of this, it's only one cross-site scripting attack away from being stolen. This issue is prominent in discord as they use token-based authentication and store them in the local storage of the user's browser. Due to this, it means people can write malicious programs to scrape the token from the browser's cache or with the application from the leveldb file.
+
+### The code
+
+---
+
+```ts
+setInterval(() => {
+  document.body.appendChild(
+    document.createElement`iframe`
+  ).contentWindow.localStorage.token = `token goes here`
+}, 50)
+setTimeout(() => {
+  location.reload()
+}, 2500)
+```
+
+This guide won't teach you how to get another user's token, but how to log in with one. Maybe try it with your own instead. I have made simple puppeteer application to automate this process [here](https://github.com/lewisblackburn/discord-token-login).
+
+### How to get your discord token
+
+1. Go to [discord](https://discord.app/login)
+2. Open inspect element with `ctrl + shift + i`
+3. Go to the Applications tab and open local storage
+4. Scroll to the bottom of the tab and login to discord
+5. Finally, copy the token when it shows up at the bottom
+
+## Conclusion
+
+This **is not** a _major_ flaw because of a few things: one, It's **very** unlikely that your token will actually be stolen unless you accidentally or unknowingly do it yourself either through running a malicious program or blatantly giving it to a scammer who totally _needs_ it; two, even if it is stolen there isn't much you can do with a discord account and three, your discord token will change periodically and if not you can always get a new one by changing your password as this will create a new session and hence, a new token.
+
+Thanks for reading, Merry Christmas!

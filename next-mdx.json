@@ -1,0 +1,15 @@
+{
+  "post": {
+    "contentPath": "content/posts",
+    "basePath": "/blog",
+    "sortBy": "date",
+    "sortOrder": "desc"
+  },
+  "snippet": {
+    "contentPath": "content/snippets",
+    "basePath": "/snippets"
+  },
+  "category": {
+    "contentPath": "content/categories"
+  }
+}
