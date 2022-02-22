@@ -1,6 +1,6 @@
 ---
 title: "A Like Button You'll Love"
-excerpt: "A boring like button never gets a click. But a like button that's actually useful gets a click. This is the story of a like button that's actually useful."
+excerpt: "A boring like button never gets a click, but an interesting one does. This is the story of a like button that's actually interesting."
 date: "2022-02-22"
 featured: true
 ---
@@ -9,7 +9,7 @@ featured: true
   <LikeButtonDemo />
 </Playground>
 
-Whilst creating the like button for my website, I chose to use the [react-icons](https://react-icons.github.io/react-icons/) library. This library allows you to import open-source SVG react icons from popular icon packs into your components. A benifit of this is that you can easily change the icon pack you're using and in the final minfied and gzipped bundle of the icons used are used.
+Whilst creating the like button for my website, I chose to use the [react-icons](https://react-icons.github.io/react-icons/) library. This library allows you to import open-source SVG icons from popular icon packs e.g. [IonIcons]("https://ionic.io/ionicons/v4") into your components. A benifit of this is that you can easily change the icon pack you're using and in the final minfied gzipped bundle only the icons used are bundled.
 
 ```tsx
 import { IoHeart } from "react-icons/io5" // 1.85KB (988B zipped)
@@ -22,7 +22,7 @@ export default component() => {
 ## The Button
 
 The button has four states: isLiked, isLiking, isUnliking and isFetchingLikes with a likes property to display the count.
-The loading state of the button is controlled by the isLiking, isUnliking and isFetchingLikes properties.
+The loading state of the button is controlled by the isLiking, isUnliking and isFetchingLikes properties. This is because the like count is refetched after each mutation and the button needs to be updated accordingly with a loading state whilst the data is being refetched.
 
 ```tsx
 <IconButton
@@ -45,7 +45,7 @@ The loading state of the button is controlled by the isLiking, isUnliking and is
 </IconButton>
 ```
 
-As you can see above, the button is both the disabled and loading state whilst the like state is mutating. This is so that button can't be repressed during the mutation. The spinner therefor is technically not a necessary aspect, however, it serves as a more active reponse to let the user know something is happening.
+As you can see above, the button is both in the disabled and loading state whilst the like state is mutating. This is so that button can't be repressed during the mutation. The spinner therefor is technically not a necessary aspect, however, it serves as a more active reponse to let the user know something is happening.
 
 ## Persisting State
 
@@ -88,4 +88,4 @@ If I were to improve the like button I would:
 
 ## Conclusion
 
-The point of this was to show how simple ui elements don't need to be, well simple. You can have a functional YouTube-esque style button OR you can make it interesting.
+The point of this was to show how simple ui elements don't need to be, well simple. You can have a functional YouTube-esque style button OR you can make it more interesting.
