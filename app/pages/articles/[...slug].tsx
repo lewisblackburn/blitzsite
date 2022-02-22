@@ -121,8 +121,9 @@ export const Article = ({ post, toc, content }) => {
           onClick={async () => {
             if (slug) {
               if (!likes.isLiked)
-                await createArticleLikeMutation({ slug }).catch((e) => notify(e.message))
-              else await deleteArticleLikeMutation({ slug }).catch((e) => notify(e.message))
+                await createArticleLikeMutation({ slug }).catch((e) => notify(e.message, "error"))
+              else
+                await deleteArticleLikeMutation({ slug }).catch((e) => notify(e.message, "error"))
               refetchLikes()
             }
           }}
@@ -146,9 +147,9 @@ export const Article = ({ post, toc, content }) => {
         onSubmit={async (e) => {
           e.preventDefault()
           if (slug)
-            await createArticleCommentMutation({ slug, text: comment }).catch((e) =>
-              notify(e.message)
-            )
+            await createArticleCommentMutation({ slug, text: comment })
+              .then(() => notify("Comment created", "success"))
+              .catch((e) => notify(e.message, "error"))
           setComment("")
           refetchComments()
         }}
@@ -183,7 +184,7 @@ export const Article = ({ post, toc, content }) => {
             {page.comments.map((comment) => (
               <li
                 key={comment.id}
-                className="grid grid-cols-2 gap-2"
+                className="grid grid-cols-2 gap-4"
                 style={{ gridTemplateColumns: "2.5rem 1fr" }}
               >
                 <Avatar text={comment.user.name} />
@@ -204,9 +205,9 @@ export const Article = ({ post, toc, content }) => {
                         icon={IoTrash}
                         onClick={async () => {
                           if (comment.user.id === user?.id) {
-                            await deleteArticleCommentMutation({ id: comment.id }).catch((e) =>
-                              notify(e.message)
-                            )
+                            await deleteArticleCommentMutation({ id: comment.id })
+                              .then(() => notify("Comment deleted", "success"))
+                              .catch((e) => notify(e.message, "error"))
                           }
                           refetchComments()
                         }}

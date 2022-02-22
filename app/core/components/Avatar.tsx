@@ -12,16 +12,13 @@ function randomColour(text: string): string {
     "bg-indigo-500",
   ]
 
-  const hash = (str: string): number => {
-    let hash = 0
-    for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash)
-    }
+  const index = Math.abs(
+    text.split("").reduce((acc, curr) => acc + curr.charCodeAt(0), 0) % colours.length
+  )
 
-    return hash % colours.length
-  }
+  const colour = colours[index]
 
-  const colour = colours[hash(text)] || "bg-gray-500"
+  if (!colour) return "bg-gray-500"
 
   return colour
 }
@@ -39,7 +36,7 @@ export default function Avatar({ text }: { text: string }) {
   return (
     <div
       className={cn(
-        "grid place-items-center w-10 h-10 rounded-full text-xs tracking-wide font-bold bg-black",
+        "grid place-items-center w-10 h-10 rounded-full text-xs tracking-wide font-bold",
         colour
       )}
     >

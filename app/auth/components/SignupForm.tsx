@@ -1,8 +1,9 @@
-import { useMutation } from "blitz"
+import { Link, Routes, useMutation } from "blitz"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
 import signup from "app/auth/mutations/signup"
 import { Signup } from "app/auth/validations"
+import Button from "app/core/components/Button"
 
 type SignupFormProps = {
   onSuccess?: () => void
@@ -12,9 +13,7 @@ export const SignupForm = (props: SignupFormProps) => {
   const [signupMutation] = useMutation(signup)
 
   return (
-    <div>
-      <h1>Create an Account</h1>
-
+    <div className="w-full">
       <Form
         submitText="Create Account"
         schema={Signup}
@@ -37,6 +36,13 @@ export const SignupForm = (props: SignupFormProps) => {
         <LabeledTextField name="email" label="Email" placeholder="Email" />
         <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
       </Form>
+
+      <div className="w-full text-center py-3">
+        <span>or</span>
+      </div>
+      <Link href={Routes.LoginPage()}>
+        <Button className="w-full py-3">LogIn</Button>
+      </Link>
     </div>
   )
 }

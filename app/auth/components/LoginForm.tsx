@@ -3,6 +3,7 @@ import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
 import login from "app/auth/mutations/login"
 import { Login } from "app/auth/validations"
+import Button from "app/core/components/Button"
 
 type LoginFormProps = {
   onSuccess?: (user: PromiseReturnType<typeof login>) => void
@@ -12,9 +13,7 @@ export const LoginForm = (props: LoginFormProps) => {
   const [loginMutation] = useMutation(login)
 
   return (
-    <div>
-      <h1>Login</h1>
-
+    <div className="w-full">
       <Form
         submitText="Login"
         schema={Login}
@@ -43,10 +42,12 @@ export const LoginForm = (props: LoginFormProps) => {
           </Link>
         </div>
       </Form>
-
-      <div style={{ marginTop: "1rem" }}>
-        Or <Link href={Routes.SignupPage()}>Sign Up</Link>
+      <div className="w-full text-center py-3">
+        <span>or</span>
       </div>
+      <Link href={Routes.SignupPage()}>
+        <Button className="w-full py-3">Sign Up</Button>
+      </Link>
     </div>
   )
 }
