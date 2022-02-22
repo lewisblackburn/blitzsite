@@ -10,11 +10,11 @@ const SnippetsPage: BlitzPage<{ snippets: Snippet[] }> = ({ snippets }) => {
         <title>Snippets</title>
       </Head>
 
-      {/* {snippets.map((snippet) => (
+      {snippets.map((snippet) => (
         <Link key={snippet.slug} href={`snippets/${snippet.slug}`}>
           <a>{snippet.frontMatter?.title}</a>
         </Link>
-      ))} */}
+      ))}
     </>
   )
 }
