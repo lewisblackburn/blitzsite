@@ -1,4 +1,3 @@
-import { MAPBOX_TOKEN } from "app/lib/constants"
 import { useState } from "react"
 import ReactMapGL from "react-map-gl"
 
