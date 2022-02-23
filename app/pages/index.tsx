@@ -7,6 +7,7 @@ import { dateToYearSince } from "app/lib/dateToYearSince"
 import { BlitzPage, dynamic, Link } from "blitz"
 import cn from "classnames"
 import { getAllMdxNodes } from "next-mdx"
+import { useMemo } from "react"
 import { Article } from "./articles/[...slug]"
 
 const Map = dynamic(() => import("../core/components/Map"), {
@@ -21,14 +22,16 @@ const ArticleListStyle = {
 }
 
 const Home: BlitzPage<{ articles?: Article[] }> = ({ articles }) => {
+  const dob = useMemo(() => dateToYearSince(new Date("2004-04-14")), [])
+
   return (
     <div className="flex flex-col space-y-10">
       <div className="flex items-center justify-center">
         <article className="prose prose-invert prose-a:text-blue-400 prose-pre:bg-primary prose-code:rounded prose-hr:hidden">
           <p>
-            Hey, {"I'm"} Lewis. {"I'm"} a ~{dateToYearSince(new Date("2004-04-14"))} year old
-            software developer from the United Kingdom, {"I'm"} interested in full-stack web
-            development focusing on large scale type-safe graphql applications
+            Hey, {"I'm"} Lewis. {"I'm"} a ~{dob} year old software developer from the United
+            Kingdom, {"I'm"} interested in full-stack web development focusing on large scale
+            type-safe graphql applications
           </p>
           <p>
             I spend my time aimlessly writing redundant documents about projects of which the life
