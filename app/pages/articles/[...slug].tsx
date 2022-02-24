@@ -99,6 +99,7 @@ export const Article = ({ article, toc, content }) => {
       <Head>
         <title>{article.title}</title>
       </Head>
+
       <div className="wrapper">
         <div className="fixed bottom-4 right-5 ">
           <IconButton

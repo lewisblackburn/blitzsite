@@ -55,7 +55,7 @@ const Home: BlitzPage<{ articles?: Article[] }> = ({ articles }) => {
       </div>
       <Button className="w-fit px-4 py-3">View changelog</Button>
       <h1 className="text-3xl font-bold">Featured Articles</h1>
-      <div className="grid  grid-cols-2 gap-5 text">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text">
         {articles?.map((article, index) => (
           <Link key={article.slug} href={`/articles/${article.slug}`}>
             <a

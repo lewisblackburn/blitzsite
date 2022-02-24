@@ -19,6 +19,10 @@
   scrollbar-width: none; /* Firefox */
 }
 
+body {
+  @apply bg-gray-800;
+}
+
 .wrapper {
   max-width: 65ch;
   @apply mx-auto;
@@ -33,7 +37,7 @@
 }
 
 .article > pre > code {
-  @apply flex items-center justify-center rounded-xl border border-black/40 bg-black/20 px-6 py-12 md:px-10 md:py-20;
+  @apply rounded-xl border border-black/40 bg-black/20 px-6 py-12 md:px-10 md:py-20;
 }
 
 /* I understand the fact that there is a watermark but does there need to be TWO? */

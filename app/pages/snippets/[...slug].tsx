@@ -1,5 +1,5 @@
 import Layout from "app/core/layouts/Layout"
-import { BlitzPage, Head } from "blitz"
+import { BlitzPage, Head, Image } from "blitz"
 import "highlight.js/styles/nord.css"
 import { useHydrate } from "next-mdx/client"
 import { getMdxNode, getMdxPaths, MdxNode } from "next-mdx/server"
@@ -45,11 +45,6 @@ const SnippetPage: BlitzPage<{ snippet: Snippet }> = ({ snippet }) => {
   )
 }
 
-SnippetPage.authenticate = false
-SnippetPage.getLayout = (page) => <Layout>{page}</Layout>
-
-export default SnippetPage
-
 export async function getStaticPaths() {
   return {
     paths: await getMdxPaths("snippet"),
@@ -89,3 +84,7 @@ export async function getStaticProps(context) {
     },
   }
 }
+
+SnippetPage.getLayout = (page) => <Layout>{page}</Layout>
+
+export default SnippetPage
