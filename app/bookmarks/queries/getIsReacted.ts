@@ -7,19 +7,15 @@ const GetBookmark = z.object({
   id: z.string().optional().refine(Boolean, "Required"),
 })
 
-export default resolver.pipe(
-  resolver.zod(GetBookmark),
-  resolver.authorize(),
-  async ({ id }, ctx) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const isLiked = await db.reaction.findUnique({
-      where: {
-        bookmarkId_userId: {
-          bookmarkId: id ?? "",
-          userId: ctx.session.userId,
-        },
+export default resolver.pipe(resolver.zod(GetBookmark), async ({ id }, ctx) => {
+  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+  const isLiked = await db.reaction.findUnique({
+    where: {
+      bookmarkId_userId: {
+        bookmarkId: id ?? "",
+        userId: ctx.session.userId ?? -1,
       },
-    })
-    return Boolean(isLiked)
-  }
-)
+    },
+  })
+  return Boolean(isLiked)
+})
