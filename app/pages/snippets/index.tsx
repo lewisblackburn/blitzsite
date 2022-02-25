@@ -13,7 +13,7 @@ const SnippetsPage: BlitzPage<{ snippets: Snippet[] }> = ({ snippets }) => {
 
       <div className="grid grid-cols-2 gap-10">
         {snippets.map((snippet) => (
-          <Link key={snippet.slug} href={Routes.SnippetPage({ slug: snippet.slug })}>
+          <Link key={snippet.slug} href={Routes.SnippetPage({ slug: [snippet.slug] })}>
             <a>
               <Card>
                 <h1>{snippet.frontMatter?.title}</h1>
