@@ -95,6 +95,8 @@ export const Bookmark = () => {
               await deleteReactionMutation({
                 bookmarkId: bookmark.id,
               })
+                .then(() => notify("Reaction deleted", "success"))
+                .catch((e) => notify(e.message, "error"))
             } else {
               await createReactionMutation({
                 bookmark: {
@@ -103,6 +105,8 @@ export const Bookmark = () => {
                   },
                 },
               })
+                .then(() => notify("Reaction created", "success"))
+                .catch((e) => notify(e.message, "error"))
             }
             refetchIsReacted()
             refetchBookmark()
@@ -123,6 +127,8 @@ export const Bookmark = () => {
               onClick={async () => {
                 if (window.confirm("This will be deleted")) {
                   await deleteBookmarkMutation({ id: bookmark.id })
+                    .then(() => notify("Bookmark deleted", "success"))
+                    .catch((e) => notify(e.message, "error"))
                   router.push(Routes.BookmarksPage())
                 }
               }}
@@ -225,7 +231,7 @@ export const Bookmark = () => {
                         refetchComments()
                       }}
                     />
-                  )}
+                  )}{" "}
                 </div>
                 <p className="whitespace-pre-line">{comment.text}</p>
               </div>
@@ -250,7 +256,6 @@ const ShowBookmarkPage: BlitzPage = () => {
   )
 }
 
-ShowBookmarkPage.authenticate = true
 ShowBookmarkPage.getLayout = (page) => <Layout>{page}</Layout>
 
 export default ShowBookmarkPage

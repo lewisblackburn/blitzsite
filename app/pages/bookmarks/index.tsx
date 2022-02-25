@@ -1,23 +1,13 @@
-import { Suspense, useEffect } from "react"
-import {
-  Head,
-  Link,
-  usePaginatedQuery,
-  useRouter,
-  BlitzPage,
-  Routes,
-  useInfiniteQuery,
-  Image,
-} from "blitz"
-import Layout from "app/core/layouts/Layout"
 import getBookmarks from "app/bookmarks/queries/getBookmarks"
-import Spinner from "app/core/components/Spinner"
-import { useInView } from "react-intersection-observer"
-import Loading from "app/core/components/Loading"
-import { Card } from "app/core/components/Card"
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import Button from "app/core/components/Button"
+import Loading from "app/core/components/Loading"
+import Spinner from "app/core/components/Spinner"
+import { useCurrentUser } from "app/core/hooks/useCurrentUser"
+import Layout from "app/core/layouts/Layout"
 import getFavicon from "app/lib/getFavicon"
+import { BlitzPage, Head, Link, Routes, useInfiniteQuery } from "blitz"
+import { Suspense, useEffect } from "react"
+import { useInView } from "react-intersection-observer"
 
 export const BookmarksList = () => {
   const user = useCurrentUser()
