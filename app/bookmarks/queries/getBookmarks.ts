@@ -5,7 +5,14 @@ interface GetBookmarksInput
   extends Pick<Prisma.BookmarkFindManyArgs, "where" | "orderBy" | "skip" | "take"> {}
 
 export default resolver.pipe(
-  async ({ where, orderBy, skip = 0, take = 100 }: GetBookmarksInput) => {
+  async ({
+    where,
+    orderBy = {
+      createdAt: "desc",
+    },
+    skip = 0,
+    take = 100,
+  }: GetBookmarksInput) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
     const {
       items: bookmarks,

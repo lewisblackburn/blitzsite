@@ -145,7 +145,7 @@ export const Article = ({ article, toc, content }) => {
         <div className="relative flex w-full">
           <span
             role="textbox"
-            className="w-full h-auto rounded-md px-4 py-3 resize-none bg-gray-800"
+            className="w-full h-auto rounded-md px-4 py-3 resize-none bg-gray-800 outline-none"
             onInput={(e) => setComment(e.currentTarget.textContent ?? "")}
             placeholder="Write a comment..."
             contentEditable

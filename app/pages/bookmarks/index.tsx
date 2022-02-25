@@ -46,7 +46,7 @@ export const BookmarksList = () => {
                 <a>
                   <div className="flex flex-col space-y-2 rounded-xl border border-black/40 bg-black/20 p-5">
                     <h1>
-                      {bookmark.host} {">"} {bookmark.title}
+                      {bookmark.host} {bookmark.host && ">"} {bookmark.title}
                     </h1>
                     <div className="flex items-center space-x-2">
                       <img src={getFavicon(bookmark.url)} alt="favicon" className="w-4 h-4" />

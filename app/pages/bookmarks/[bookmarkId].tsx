@@ -147,7 +147,7 @@ export const Bookmark = () => {
       <div className="flex flex-col space-y-5">
         <Tag>{bookmark.tag?.name}</Tag>
         <h1 className="text-2xl font-bold xl:text-3xl">
-          {bookmark.host} {">"} {bookmark.title}
+          {bookmark.host} {bookmark.host && ">"} {bookmark.title}
         </h1>
         <div className="flex items-center space-x-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
