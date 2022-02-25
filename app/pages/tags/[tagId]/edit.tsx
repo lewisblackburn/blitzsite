@@ -16,6 +16,7 @@ import updateTag from "app/tags/mutations/updateTag"
 import { TagForm, FORM_ERROR } from "app/tags/components/TagForm"
 import deleteTag from "app/tags/mutations/deleteTag"
 import Button from "app/core/components/Button"
+import Loading from "app/core/components/Loading"
 
 export const EditTag = () => {
   const router = useRouter()
@@ -77,7 +78,7 @@ export const EditTag = () => {
 
 const EditTagPage: BlitzPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <EditTag />
     </Suspense>
   )

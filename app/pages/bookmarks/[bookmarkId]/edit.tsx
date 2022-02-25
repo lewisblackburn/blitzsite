@@ -3,6 +3,7 @@ import updateBookmark from "app/bookmarks/mutations/updateBookmark"
 import getBookmark from "app/bookmarks/queries/getBookmark"
 import { Bookmark } from "app/bookmarks/validation"
 import { IconButton } from "app/core/components/IconButton"
+import Loading from "app/core/components/Loading"
 import Layout from "app/core/layouts/Layout"
 import getTags from "app/tags/queries/getTags"
 import {
@@ -100,7 +101,7 @@ export const EditBookmark = () => {
 
 const EditBookmarkPage: BlitzPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <EditBookmark />
     </Suspense>
   )

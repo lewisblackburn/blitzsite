@@ -4,6 +4,7 @@ import Layout from "app/core/layouts/Layout"
 import getTags from "app/tags/queries/getTags"
 import Button from "app/core/components/Button"
 import { Card } from "app/core/components/Card"
+import Loading from "app/core/components/Loading"
 
 const ITEMS_PER_PAGE = 100
 
@@ -35,7 +36,7 @@ const TagsPage: BlitzPage = () => {
       </Head>
 
       <div className="flex flex-col space-y-10">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <TagsList />
         </Suspense>
 

@@ -31,6 +31,7 @@ import Button from "app/core/components/Button"
 import Icon from "app/core/components/Icon"
 import removeHttps from "app/lib/removeHttps"
 import getFavicon from "app/lib/getFavicon"
+import Loading from "app/core/components/Loading"
 
 export const Bookmark = () => {
   const router = useRouter()
@@ -250,7 +251,7 @@ export const Bookmark = () => {
 
 const ShowBookmarkPage: BlitzPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <Bookmark />
     </Suspense>
   )
