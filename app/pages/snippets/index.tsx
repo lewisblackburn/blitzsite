@@ -1,5 +1,6 @@
+import { Card } from "app/core/components/Card"
 import Layout from "app/core/layouts/Layout"
-import { BlitzPage, Head, Link } from "blitz"
+import { BlitzPage, Head, Link, Routes } from "blitz"
 import { getAllMdxNodes } from "next-mdx"
 import { Snippet } from "./[...slug]"
 
@@ -10,11 +11,13 @@ const SnippetsPage: BlitzPage<{ snippets: Snippet[] }> = ({ snippets }) => {
         <title>Snippets</title>
       </Head>
 
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-2 gap-10">
         {snippets.map((snippet) => (
-          <Link key={snippet.slug} href={`snippets/${snippet.slug}`}>
-            <a className="flex items-center justify-center rounded-xl border border-black/40 bg-black/20 px-6 py-12 md:px-10 md:py-20">
-              <h1>{snippet.frontMatter?.title}</h1>
+          <Link key={snippet.slug} href={Routes.SnippetPage({ slug: snippet.slug })}>
+            <a>
+              <Card>
+                <h1>{snippet.frontMatter?.title}</h1>
+              </Card>
             </a>
           </Link>
         ))}

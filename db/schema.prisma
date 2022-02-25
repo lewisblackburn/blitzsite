@@ -21,6 +21,8 @@ model User {
   role               String           @default("USER")
   likedArticles      ArticleLike[]
   commentsOnArticles ArticleComment[]
+  reactions          Reaction[]
+  comments           Comment[]
 
   tokens   Token[]
   sessions Session[]
@@ -76,4 +78,52 @@ model ArticleComment {
   userId    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Reaction {
+  id         Int       @id @default(autoincrement())
+  createdAt  DateTime  @default(now())
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  comment    Comment?  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  bookmark   Bookmark? @relation(fields: [bookmarkId], references: [id])
+  bookmarkId String?
+  commentId  Int?
+
+  @@unique([commentId, userId])
+  @@unique([bookmarkId, userId])
+}
+
+model Comment {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  text       String     @db.Text
+  reactions  Reaction[]
+  author     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bookmark   Bookmark?  @relation(fields: [bookmarkId], references: [id])
+  bookmarkId String?
+  userId     Int
+}
+
+model Bookmark {
+  id          String     @id @default(cuid())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  url         String     @unique @db.VarChar(512)
+  host        String?
+  title       String?    @db.VarChar(280)
+  description String?    @db.VarChar(2048)
+  comments    Comment[]
+  reactions   Reaction[]
+  tag         Tag?       @relation(fields: [tagId], references: [id])
+  tagId       String?
+
+  @@index([host])
+}
+
+model Tag {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  bookmarks Bookmark[]
 }

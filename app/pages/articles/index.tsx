@@ -13,11 +13,6 @@ const ArticlesPage: BlitzPage<{ articles: Article[] }> = ({ articles }) => {
     article.frontMatter?.title.toLowerCase().includes(predicate.toLowerCase())
   )
 
-  const getFirstArticleDate = useMemo(() => {
-    const firstArticle = articles.reverse()[0]
-    return firstArticle?.frontMatter?.date.split("-")[0] ?? ""
-  }, [articles])
-
   return (
     <>
       <Head>
@@ -27,9 +22,8 @@ const ArticlesPage: BlitzPage<{ articles: Article[] }> = ({ articles }) => {
       <div className="article">
         <h1>Articles</h1>
         <p>
-          {"I've"} been writing online since {getFirstArticleDate}, mostly about web development. In
-          total, {"I've"} written {articles.length} articles on my blog. Use the search below to
-          filter by title.
+          {"I've"} been writing online since 2020, mostly about web development. In total, {"I've"}{" "}
+          written {articles.length} articles on my blog. Use the search below to filter by title.
         </p>
         <input
           className="w-full mt-2 p-3 rounded-md bg-gray-800 text-gray-300"

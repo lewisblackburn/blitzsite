@@ -51,6 +51,12 @@ a[id="external"] {
   @apply text-blue-400 hover:text-blue-500 cursor-pointer;
 }
 
+.bg-dots {
+  background: linear-gradient(90deg, #050505 15px, transparent 1%) center,
+    linear-gradient(#050505 15px, transparent 1%) center, rgba(255, 255, 255, 0.16);
+  background-size: 16px 16px;
+}
+
 /* Remark Styles */
 .remark-code-title {
   @apply px-5 py-3 font-mono text-sm font-bold rounded-t;

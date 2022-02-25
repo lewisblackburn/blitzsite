@@ -1,6 +1,7 @@
 import { Link, useRouter } from "blitz"
 import cn from "classnames"
 import { useEffect, useState } from "react"
+import { useCurrentUser } from "../hooks/useCurrentUser"
 import NowPlaying from "./NowPlaying"
 
 export interface HeaderProps {}
@@ -25,12 +26,19 @@ const HeaderLink: React.FC<{ href: string }> = ({ href, children }) => {
 }
 
 export const Header: React.FC<HeaderProps> = () => {
+  const user = useCurrentUser()
+
   return (
     <div className="flex items-center -mx-3">
       <HeaderLink href="/">Home</HeaderLink>
       <HeaderLink href="/articles">Articles</HeaderLink>
       <HeaderLink href="/snippets">Snippets</HeaderLink>
-      <HeaderLink href="/profile">Profile</HeaderLink>
+      <HeaderLink href="/bookmarks">Bookmarks</HeaderLink>
+      {user?.role === "ADMIN" && (
+        <>
+          <HeaderLink href="/tags">Tags</HeaderLink>
+        </>
+      )}
     </div>
   )
 }
