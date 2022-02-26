@@ -1,0 +1,21 @@
+---
+title: "Next Dynamic Routes"
+description: "How to handle dynamic routes in Next.JS"
+logo: "nextjs.svg"
+---
+
+### Incorrect
+
+```tsx
+<Link href={`/snippets/slug/${snippet.slug}`}>
+  <a>{snippet.name}</a>
+</Link>
+```
+
+### Correct
+
+```tsx
+<Link href={{ pathname: "/snippets/[slug]", query: { slug: snippet.slug } }}>
+  <a>{snippet.name}</a>
+</Link>
+```
